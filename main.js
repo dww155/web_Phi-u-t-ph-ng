@@ -43,7 +43,6 @@ function calculator () {
                 t = t + parseInt(mucgia*0.05);
             }
         })
-        mucgia = parseInt(mucgia) + t ; 
     } else {
         var t = 0;
         for (var i = 1 ; i < services.length ; i++) {
@@ -51,8 +50,8 @@ function calculator () {
                 t = t + parseInt(mucgia*0.05);
             }
         }
-        mucgia = parseInt(mucgia) + t ; 
     }
+    mucgia = parseInt(mucgia) + t ; 
     
 
     xuat.value = mucgia*time ;
