@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="main">
+        <form name="frmPhieudatphong" action="" onsubmit="return DangKy();">
+            <div class="header">
+                <h3>
+                    Phiếu đặt phòng
+                </h3>
+            </div>
+            <div class="row">
+                <label for="">Họ tên *</label>
+                <input id="hoten" name="txtHoten" type="text">
+            </div>
+            <div class="row">
+                <label for="">Địa chỉ</label>
+                <input name="txtDiachi" type="text">
+            </div>
+            <div class="row">
+                <label for="">Số chứng minh nhân dân *</label>
+                <input id="cmnd" name="txtcmnd" type="text">
+            </div>
+            <div class="row">
+                <label for="">Mức giá</label>
+                <select id="mucgia" name="cboMucgia" id="">
+                    <option value="150000">Loại thường</option>
+                    <option value="300000">Sang trọng</option>
+                    <option value="500000">Đặc biệt</option>
+                </select>
+            </div>
+            <div class="row date">
+                <div class="col">
+                    <label for="">Ngày thuê</label>
+                    <input id="ngaythue" name="dateNgaythue" type="date">    
+                </div>
+                <div class="col tra">
+                    <label for="">Ngày trả</label>
+                    <input id="ngaytra" name="dateNgaytra" type="date">    
+                </div>
+            </div>
+            <div id="service" class="row">
+                <label  for="">Dịch vụ đi kèm</label>
+                <span><input id="ansang" name="chkAnsang" type="checkbox"> Ăn sáng</span>
+                <span><input name="chkGiatui" type="checkbox" value> Giặt ủi</span>
+                <span><input name="chkBaobuoisang" type="checkbox" value> Báo buổi sáng</span>
+            </div>
+            <div class="row">
+                <label for="">Tiền thuê phòng</label>
+                <input id="tienthuephong" name="txtTienthuephong" type="text">VNĐ
+            </div>
+            <div class="row">
+                <input id="thanhtien" name="btnTinhdongia" type="button" value="Tính đơn giá">
+                <input id="dangky" name="subDangky" type="submit" value="Đăng ký">
+            </div>
+        </form>
+
+    </div>
+</body>
+<script src="./main.js"></script>
+</html>
