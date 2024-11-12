@@ -31,29 +31,28 @@ function calculator () {
     var mucgia = document.getElementById("mucgia").value;
     var services = document.querySelectorAll("#service input");
     
-    if (time <= 0) {
-        alert("nhap ngay sai") ;
-        return ;
+    if (time < 0) {
+        alert("nhap ngay khong dung") ; 
+        return ; 
     }
 
+    mucgia = parseInt(mucgia);
+
     if (mucgia == 150000) {
-        var t = 0; 
+        var t = 0;
         services.forEach((i) => {
             if (i.checked == true) {
-                t = t + parseInt(mucgia*0.05);
+                t = t + mucgia*0.05;
             }
         })
     } else {
-        var t = 0;
         for (var i = 1 ; i < services.length ; i++) {
-            if (services[i].checked == true) {
-                t = t + parseInt(mucgia*0.05);
-            }
+            if (services[i].checked == true) 
+                t = t + mucgia*0.05;
         }
     }
-    mucgia = parseInt(mucgia) + t ; 
-    
 
+    mucgia = mucgia + t ; 
     xuat.value = mucgia*time ;
 }
 thanhtien.addEventListener("click", () => {
