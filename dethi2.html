@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta id="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            display: flex;
+            height: 100vh;
+
+        }
+        form{
+            margin: auto;
+            border: 2px solid;
+            padding: 10px;
+            width: 500px;
+        }
+        header{
+            border-bottom: 1px solid;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .row input[type="text"]{
+            width: 300px;
+            display: block;
+        }
+        .row{
+            margin: 20px;
+        }
+        select {
+            width: 200px;
+            display: block;
+        }
+        input.ngay {
+            width: 120px;
+        }
+        .ngaytra {
+            margin-left: 150px;
+        }
+        .service{
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <form id="frmPhieudatphong" onsubmit="return checksubmit()" action="">
+        <header>PHIEU DAT PHONG</header>
+        <div class="row">
+            <label for="">Ho ten*</label>
+            <input type="text" id="txtHoten">
+        </div>
+        <div class="row">
+            <label for="">Dia chi</label>
+            <input type="text" id="txtDiachii">
+        </div>
+        <div class="row">
+            <label for="">So chung minh nhan dan*</label>
+            <input type="text" id="txtcmnd">
+        </div>
+        <div class="row">
+            <label for="">Muc gia</label>
+            <select id="cboMucgia" id="">
+                <option value="a">loai thuong</option>
+                <option value="b">loai sang trong</option>
+                <option value="c">loai dac biet</option>
+            </select>
+        </div>
+        <div class="row" style="display: flex;">
+            <div class="col">
+                <label for="">Ngay thue</label>
+                <input class="ngay" type="date" id="dateNgaythue">
+            </div>
+            <div class="col ngaytra">
+                <label for="">Ngay tra</label>
+                <input class="ngay" type="date" id="dateNgaytra">
+            </div>
+        </div>
+        <div class="row">
+            <label for="">Dich vu di kem</label>
+            <div class="service">
+                <input type="checkbox" id="chkAnsang">
+                <label for="">An sang</label>
+            </div>
+            <div class="service">
+                <input type="checkbox" id="chkGiatui">
+                <label for="">Giat ui</label>
+            </div>
+            <div class="service">
+                <input type="checkbox" id="chkBaobuoisang">
+                <label for="">Bao buoi sang</label>
+            </div>
+        </div>
+        <div class="row">
+            <label for="">Tien thue phong</label>
+            <span style="display: flex;">
+                <input type="text" id="txtTienthuephong">
+                <label for="">VND</label>
+            </span>
+        </div>
+        <div class="row">
+            <input type="submit" id="btnTinhdongia" value="Tinh don gia" onclick="calculate()">
+            <input type="submit" id="subDangky" value="Dang ky">
+        </div>
+    </form>
+</body>
+
+<script>
+    document.getElementById("btnTinhdongia").addEventListener("click", (e) => {
+        e.preventDefault();
+    })
+
+    function checksubmit() {
+        let hoten = document.getElementById("txtHoten").value;
+        let cmnd = document.getElementById("txtcmnd").value;
+
+        if (hoten == '') {
+            alert("Ho va ten khong duoc rong");
+            hoten.focus();
+            return false;
+        }
+        if (cmnd == '') {
+            alert("CMND khong duoc rong");
+            cmnd.focus();
+            return false;
+        }
+
+        if (isNaN(cmnd)) {
+            alert("CMND phai la so");
+            cmnd.focus();
+            return false;
+        }
+
+        return true;
+    }
+
+    let tmp;
+    let ansang = document.getElementById("chkAnsang");
+    ansang.addEventListener("click", () => {
+        tmp = ansang.checked;
+    }) 
+
+    function renderService() {
+        let mucgia = document.getElementById("cboMucgia").value;
+        let ansang = document.getElementById("chkAnsang");
+        
+        if (mucgia == 'a') {
+            ansang.checked=tmp;
+            ansang.disabled = false;
+        } else {
+            tmp = ansang.checked;
+            ansang.checked = true;
+            ansang.disabled = true;
+        }
+    }
+    document.getElementById("cboMucgia").onchange = () => {
+        renderService();
+    }
+
+    function calculate() {
+        let mucgia = document.getElementById("cboMucgia").value;
+        let ngaythue = new Date(document.getElementById("dateNgaythue").value);
+        let ngaytra = new Date(document.getElementById("dateNgaytra").value);
+        let ansang = document.getElementById("chkAnsang").checked;
+        let bao = document.getElementById("chkBaobuoisang").checked;
+        let giatui = document.getElementById("chkGiatui").checked;
+        let box_tien = document.getElementById("txtTienthuephong");
+        
+        if (ngaytra < ngaythue) {
+            alert("Ngay tra phai sau ngay thue");
+            return;
+        }
+
+        let ngay = Math.ceil(ngaytra - ngaythue) / (24 * 3600 * 1000);
+        if (ngay == 0) {
+            ngay += 1;
+        }
+
+        let gia;
+        let dichvu = 0;
+
+        if (mucgia == 'a') {
+            gia = 150000;
+            if (ansang){
+                dichvu += 5;
+            }
+        } else if (mucgia == 'b') {
+            gia = 300000;
+        } else {
+            gia = 500000;
+        }
+
+        if (giatui) {
+            dichvu+=5;
+        }
+        if (bao) {
+            dichvu+=5;
+        }
+
+        let thanhtien = gia + (gia*dichvu/100);
+
+        box_tien.value = thanhtien;
+    }
+</script>
+</html>
